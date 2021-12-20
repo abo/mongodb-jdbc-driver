@@ -142,7 +142,7 @@ public class ResultSetIterator implements ResultSet {
         if ( expandResultSet && current instanceof Map ){
             return String.valueOf( ((Map)current).get( metaColumnsNames.get(columnIndex-1)));
         }
-        return null;
+        return (String)current;
     }
 
     @Override
@@ -153,7 +153,7 @@ public class ResultSetIterator implements ResultSet {
             return obj != null ? Boolean.valueOf( String.valueOf(obj) ) : false;
 
         }
-        return false;
+        return (Boolean)current;
     }
 
     @Override
@@ -169,7 +169,7 @@ public class ResultSetIterator implements ResultSet {
             return obj != null ? Short.valueOf( String.valueOf(obj) ) : -1;
 
         }
-        return 0;
+        return (Short)current;
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number) obj).intValue();
             return obj != null ? Integer.valueOf( String.valueOf(obj) ) : -1;
         }
-        return 0;
+        return (Integer)current;
     }
 
     @Override
@@ -189,7 +189,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number) obj).longValue();
             return obj != null ? Long.valueOf( String.valueOf(obj) ) : -1;
         }
-        return 0;
+        return (Long)current;
     }
 
     @Override
@@ -199,7 +199,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number) obj).floatValue();
             return obj != null ? Float.valueOf( String.valueOf(obj) ) : -1f;
         }
-        return 0;
+        return (Float)current;
     }
 
     @Override
@@ -209,7 +209,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Double ) return (Double) obj;
             return obj != null ? Double.valueOf( obj.toString() ) : -1d;
         }
-        return 0;
+        return (Double)current;
     }
 
     @Override
@@ -219,7 +219,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof BigDecimal ) return (BigDecimal) obj;
             return  null;
         }
-        return null;
+        return (BigDecimal) current;
     }
 
     @Override
@@ -235,7 +235,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof java.util.Date ) return new Date( ((java.util.Date)obj).getTime() );
             return obj != null ? Date.valueOf( String.valueOf( obj ) ) : null;
         }
-        return null;
+        return (Date)current;
     }
 
     @Override
@@ -268,7 +268,7 @@ public class ResultSetIterator implements ResultSet {
         if ( expandResultSet && current instanceof Map ){
             return String.valueOf( ((Map)current).get( columnLabel));
         }
-        return null;
+        return (String) current;
     }
 
     @Override
@@ -279,7 +279,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Boolean ) return (Boolean)obj;
             return Boolean.valueOf( obj.toString() );
         }
-        return false;
+        return (Boolean)current;
     }
 
     @Override
@@ -295,7 +295,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number)obj).shortValue();
             return Short.valueOf( obj.toString() );
         }
-        return -1;
+        return (Short)current;
     }
 
     @Override
@@ -306,7 +306,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number)obj).intValue();
             return Integer.valueOf( obj.toString() );
         }
-        return -1;
+        return (Integer)current;
     }
 
     @Override
@@ -317,7 +317,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number)obj).longValue();
             return Long.valueOf( obj.toString() );
         }
-        return -1;
+        return (Long)current;
     }
 
     @Override
@@ -328,7 +328,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number)obj).floatValue();
             return Float.valueOf( obj.toString() );
         }
-        return -1f;
+        return (Float)current;
     }
 
     @Override
@@ -339,7 +339,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof Number ) return ((Number)obj).doubleValue();
             return Double.valueOf( obj.toString() );
         }
-        return -1d;
+        return (Double)current;
     }
 
     @Override
@@ -361,7 +361,7 @@ public class ResultSetIterator implements ResultSet {
             if ( obj instanceof java.util.Date ) return new Date( ((java.util.Date)obj).getTime() );
             return Date.valueOf( obj.toString() );
         }
-        return null;
+        return (Date)current;
     }
 
     @Override
