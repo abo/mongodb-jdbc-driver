@@ -7,6 +7,7 @@ import com.mongodb.Function;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
+import java.util.function.Consumer;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -147,8 +148,8 @@ public class WrappedFindIterable<TResult> implements com.mongodb.client.MongoIte
         return findIterable.into( a );
     }
 
-    public void forEach(Block block) {
-        findIterable.forEach( block );
+    public void forEach(Consumer<? super TResult> action) {
+        findIterable.forEach( action );
     }
 
     @Override
@@ -156,7 +157,7 @@ public class WrappedFindIterable<TResult> implements com.mongodb.client.MongoIte
         return findIterable.cursor();
     }
 
-    public TResult explain(){
-        return findIterable.modifiers(new Document("$explain", true)).first();
-    }
+//    public TResult explain(){
+//        return findIterable.modifiers(new Document("$explain", true)).first();
+//    }
 }

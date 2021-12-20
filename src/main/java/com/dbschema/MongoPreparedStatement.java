@@ -157,7 +157,7 @@ public class MongoPreparedStatement implements PreparedStatement {
             }
         }
         try {
-            Context context = Context.newBuilder("js").allowAllAccess(true).build();
+            Context context = Context.newBuilder("js").allowAllAccess(true).option("engine.WarnInterpreterOnly", "false").build();
             boolean dbIsSet = false;
             Value bindings = context.getBindings("js");
             for ( WrappedMongoDatabase db : connection.getDatabases() ){

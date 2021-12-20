@@ -47,10 +47,10 @@ public class WrappedMongoCollection<TDocument> {
         return mongoCollection.toString();
     }
 
-    public Object explain(){
-        // Support for explain()
-        return find().explain();
-    }
+//    public Object explain(){
+//        // Support for explain()
+//        return find().explain();
+//    }
 
     public MongoNamespace getNamespace() {
         return mongoCollection.getNamespace();

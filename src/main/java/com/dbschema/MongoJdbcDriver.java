@@ -34,12 +34,13 @@ public class MongoJdbcDriver implements Driver
             LOGGER.setLevel(Level.FINEST);
             LOGGER.addHandler(consoleHandler);
 
-            final FileHandler fileHandler = new FileHandler(System.getProperty("user.home") + "/.DbSchema/logs/MongoDbJdbcDriver.log");
-            fileHandler.setFormatter( new SimpleFormatter());
-            LOGGER.addHandler(fileHandler);
+//            final FileHandler fileHandler = new FileHandler(System.getProperty("user.home") + "/.DbSchema/logs/MongoDbJdbcDriver.log");
+//            fileHandler.setFormatter( new SimpleFormatter());
+//            LOGGER.addHandler(fileHandler);
 
         } catch ( Exception ex ){
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            LOGGER.log(Level.SEVERE, "", ex);
         }
     }
 

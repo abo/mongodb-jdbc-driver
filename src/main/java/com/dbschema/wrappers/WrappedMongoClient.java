@@ -76,9 +76,9 @@ public class WrappedMongoClient {
         return mongoClient.getMongoClientOptions();
     }
 
-    public List<MongoCredential> getCredentialsList() {
-        return mongoClient.getCredentialsList();
-    }
+//    public List<MongoCredential> getCredentialsList() {
+//        return Collections.singletonList(mongoClient.getCredential());
+//    }
 
     public MongoCredential getCredential() {
         return mongoClient.getCredential();
