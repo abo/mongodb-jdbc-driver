@@ -1,8 +1,14 @@
-# MongoDb JDBC Driver | DbSchema MongoDB Designer
+Fork from [DbSchema’s MongoDB JDBC Driver](https://github.com/wise-coders/mongodb-jdbc-driver) and fix bugs for [flyway-mongodb](https://github.com/abo/flyway-mongodb)
+
+
+
+---
+
+## MongoDb JDBC Driver | DbSchema MongoDB Designer
 
 The driver is written by [DbSchema - MongoDb Diagram Designer](https://dbschema.com/mongodb-tool.html) for everybody how needs an MongoDb JDBC driver. 
 
-## Driver Features
+### Driver Features
 
 * JDBC driver capable to execute native MongoDb queries, similar with Mongo Shell. 
 
@@ -24,16 +30,12 @@ scanning random documents from each collection.
 The number of scanned documents can be set in the URL using the parameter scan=<fast|medium|full>.
 
 
-## License
+### License
 
 [GPL-3 dual license](https://opensource.org/licenses/GPL-3.0).  
 For any improvements please create merge requests to this repository.
 
-## Download JDBC Driver Binary Distribution
-
-[Available here](http://www.dbschema.com/jdbc-drivers/MongoDbJdbcDriver.zip). Unpack and include all jars in your classpath. The driver is compatible with Java 8.
-
-## Driver URL
+### Driver URL
 
 ```
 jdbc:mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[database][?options]]
@@ -42,7 +44,7 @@ The driver is using the same URL, options and parameters as [native MongoDb Java
 Different is only the 'jdbc:' prefix.
 
 
-## How to Use the Driver
+### How to Use the Driver
 
 The driver can be use similar with any other JDBC driver. The resultSet will always receive a single object as document.
 ```
@@ -69,7 +71,7 @@ Object json = rs.getObject(1);
 Any contributions to this project are welcome.
 We are looking forward to improve this and make possible to execute all MongoDb native queries via JDBC.
 
-## How it Works
+### How it Works
 
 The driver implements a PreparedStatement where native MongoDb queries can be passed. Sample: `db.myCollection.find()`.
 In the MongoPreparedStatement we start a Rhino JavaScript engine, and pass this query to the engine.
@@ -87,42 +89,6 @@ Writing the Wrapper class we added methods which receive Map objects and we take
 
 In test cases we try to add all possible queries we want to support. If you find any query which does not work please feel free to commit in the source code or write us.
 
-## Contributors
+### Contributors
 
 Please help us to improve this driver by adding fixes and create merge requests to this repository. 
-
-## How to Test the Driver
-
-The driver can be tested by simply downloading the [DbSchema - MongoDB Diagram Designer](https://dbschema.com/mongodb-tool.html). The tool can be tested free for 15 days.
- 
-DbSchema reads sample JSon documents from the database and deduces a 'logical schema' which is shown as diagrams. 
-Deducing means we consider that each collection documents have similar structure, so we read a bunch of documents from each collection and deduce the schema.
-
-![MongoDb Designer with Diagrams of the Database Structure](resources/images/dbschema-mongodb-diagram-gui.png)
-
-Connecting to MongoDb is simple. You can choose different methods to connect, the host, port, etc.
-The driver is downnloaded automatically by DbSchema from dbschema.com webserver.
-
-![DbSchema Connection Dialog to MongoDB](resources/images/dbschema-mongodb-connection-dialog.png)
-
-The JDBC URL is the same as the native MongoDb Java driver. This can be customized in the second tab.
-
-![DbSchema connect using JDBC URL](resources/images/dbschema-mongodb-connection-custom-url.png)
-
-DbSchema is featuring tools for writing MongoDb queries, in the same way as in the MongoDb Shell:
-
-![Visual Query Editor for MongoDB](resources/images/dbschema-mongodb-query-editor.png)
-
-DbSchema can create **virtual foreign keys** which will be saved to project file.
-This are useful in Relational Data Browse, for easy exploring data from multiple tables.
-
-![Virtual Foreign keys for MongoDB](resources/images/dbschema-mongodb-virtual-foreign-keys.png)
-
-Relational Data Browse is a tool for visually exploring the database data.
-
-![MongoDB Data Explorer adn Editor](resources/images/dbschema-mongodb-relational-data-browse.png)
-
-
-
-A full description of DbSchema features is available on [DbSchema MongoDB Designer Website](https://dbschema.com/mongodb-tool.html).
-DbSchema can be [downloaded](https://dbschema.com) and tested for free for 15 days.
