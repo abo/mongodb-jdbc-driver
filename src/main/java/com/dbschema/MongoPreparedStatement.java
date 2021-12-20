@@ -9,6 +9,7 @@ import com.dbschema.wrappers.WrappedMongoClient;
 import com.dbschema.wrappers.WrappedMongoCollection;
 import com.dbschema.wrappers.WrappedMongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
+import java.util.HashMap;
 import org.bson.Document;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
@@ -40,6 +41,7 @@ public class MongoPreparedStatement implements PreparedStatement {
     private boolean isClosed = false;
     private int maxRows = -1;
     private final String query;
+    private Map<Integer, String> params = new HashMap<>();
 
     public static final Logger LOGGER = Logger.getLogger( MongoPreparedStatement.class.getName() );
 
@@ -239,7 +241,19 @@ public class MongoPreparedStatement implements PreparedStatement {
 
     @Override
     public int executeUpdate() throws SQLException {
-        return executeUpdate(query);
+        if (params.isEmpty() || query == null) {
+            return executeUpdate(query);
+        } else {
+            String actualQuery = query;
+            for (int i = 0; i < params.size() ; i++) {
+                String val = params.get(i+1);
+                if (val == null) {
+                    throw new SQLException(String.format("%dth params absent", i+1));
+                }
+                actualQuery = actualQuery.replaceFirst("\\?", val);
+            }
+            return executeUpdate(actualQuery);
+        }
     }
 
     private WrappedMongoDatabase getDatabase(String name){
@@ -399,7 +413,7 @@ public class MongoPreparedStatement implements PreparedStatement {
     @Override
     public int getUpdateCount() throws SQLException	{
         checkClosed();
-        return 0;
+        return -1;
     }
 
     @Override
@@ -543,58 +557,70 @@ public class MongoPreparedStatement implements PreparedStatement {
 
     @Override
     public ResultSet executeQuery() throws SQLException {
-        execute(query);
+        if (params.isEmpty() || query == null) {
+            executeQuery(query);
+        } else {
+            String actualQuery = query;
+            for (int i = 0; i < params.size() ; i++) {
+                String val = params.get(i+1);
+                if (val == null) {
+                    throw new SQLException(String.format("%dth params absent", i+1));
+                }
+                actualQuery = actualQuery.replaceFirst("\\?", val);
+            }
+            execute(actualQuery);
+        }
         return lastResultSet;
     }
 
     @Override
     public void setNull(int parameterIndex, int sqlType) throws SQLException {
-
+        params.put(parameterIndex, "null");
     }
 
     @Override
     public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setByte(int parameterIndex, byte x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setShort(int parameterIndex, short x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setInt(int parameterIndex, int x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setLong(int parameterIndex, long x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setFloat(int parameterIndex, float x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setDouble(int parameterIndex, double x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException {
-
+        params.put(parameterIndex, String.valueOf(x));
     }
 
     @Override
     public void setString(int parameterIndex, String x) throws SQLException {
-
+        params.put(parameterIndex, "'" + x + "'");
     }
 
     @Override
