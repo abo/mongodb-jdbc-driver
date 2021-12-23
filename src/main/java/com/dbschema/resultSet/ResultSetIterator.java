@@ -140,7 +140,8 @@ public class ResultSetIterator implements ResultSet {
     @Override
     public String getString(int columnIndex) {
         if ( expandResultSet && current instanceof Map ){
-            return String.valueOf( ((Map)current).get( metaColumnsNames.get(columnIndex-1)));
+            Object val = ((Map)current).get( metaColumnsNames.get(columnIndex-1));
+            return val == null ? null : String.valueOf( val );
         }
         return (String)current;
     }
@@ -266,7 +267,8 @@ public class ResultSetIterator implements ResultSet {
     @Override
     public String getString(String columnLabel) throws SQLException {
         if ( expandResultSet && current instanceof Map ){
-            return String.valueOf( ((Map)current).get( columnLabel));
+            Object val = ((Map)current).get( columnLabel);
+            return val == null ? null : String.valueOf( val );
         }
         return (String) current;
     }
